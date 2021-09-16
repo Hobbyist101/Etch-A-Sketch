@@ -7,48 +7,30 @@ const resizeBtn = document.querySelector('#resizeBtn');
 start();
 
 function start() {
-    let userInput = prompt("Pls Choose Between 1 and 64")
-    if (userInput === null || userInput < 1){
-        prompt("1 to 64");
-    } else if (userInput > 64){
-        prompt("1 to 64");
-    } else {
-        createGrid(userInput,userInput);
-    };
+    let userInput = prompt("Please Choose Between 1 and 64");
+    createGrid(userInput,userInput);
 
     resizeBtn.addEventListener('click', () => {
-        let newInput = prompt("Pls Choose Between 1 and 64");
+        let newInput = prompt("Please Choose Between 1 and 64");
         wipe();
-        if (newInput === null || newInput < 1){
-            prompt("1 to 64");
-        } else if (newInput > 64){
-            prompt("1 to 64");
-        } else {
-            createGrid(newInput,newInput);
-            blackColor();
-            grayColor();
-            rainbowColor();
-            eraser();
-            // Color Input 
-            const chooseColor = document.querySelector('#inputColor');
-            chooseColor.addEventListener('input', function(){
-            let inputColor = document.getElementById('inputColor').value;
-            const gridBoxs = boxes.querySelectorAll(".gridBox");
-            for (let i = 0; i < (newInput * newInput); i++) {
-                gridBoxs[i].addEventListener('mouseover', function(event){
-                    event.target.style.backgroundColor = inputColor;
-                })
-            }
-        })
-        }  
+        createGrid(newInput,newInput);
+        blackColor();
+        grayColor();
+        rainbowColor();
+        eraser();
+        colorInput();
     });
 
     function createGrid(col,row){
-        for (let i = 0; i < (col * row); i++){
-            const div = document.createElement('div');
-            boxes.style.gridTemplateColumns = `repeat(${col}, 1fr)`;
-            boxes.style.gridTemplateRows = `repeat(${row}, 1fr)`;
-            boxes.appendChild(div).classList.add('gridBox');
+        if (col >= 1 && col <= 64){
+            for (let i = 0; i < (col * row); i++){
+                const div = document.createElement('div');
+                boxes.style.gridTemplateColumns = `repeat(${col}, 1fr)`;
+                boxes.style.gridTemplateRows = `repeat(${row}, 1fr)`;
+                boxes.appendChild(div).classList.add('gridBox');
+            }
+        } else {
+            window.location.reload(false);
         }
     };
 
